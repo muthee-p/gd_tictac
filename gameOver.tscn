@@ -11,27 +11,27 @@ custom_minimum_size = Vector2(684, 210)
 anchors_preset = -1
 anchor_left = -0.0205882
 anchor_right = 0.00588235
-offset_left = -2.0
-offset_top = 362.0
+offset_left = -2.00002
+offset_top = 564.0
 offset_right = 682.0
-offset_bottom = 572.0
+offset_bottom = 774.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_8wc2y")
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="."]
-offset_left = 228.0
-offset_top = 398.0
-offset_right = 435.0
-offset_bottom = 456.0
+offset_left = 232.0
+offset_top = 606.0
+offset_right = 439.0
+offset_bottom = 664.0
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 26
 text = "Round Winner:"
 
 [node name="resultLabel" type="Label" parent="."]
-offset_left = 232.0
-offset_top = 464.0
-offset_right = 425.0
-offset_bottom = 550.0
+offset_left = 228.0
+offset_top = 676.0
+offset_right = 421.0
+offset_bottom = 762.0
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 48
 text = "Player 1"
