@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dn5iidb1amee8"]
+[gd_scene load_steps=9 format=3 uid="uid://dn5iidb1amee8"]
 
 [ext_resource type="Script" path="res://compGame.cs" id="1_eyp2p"]
 [ext_resource type="PackedScene" uid="uid://c22opdntsfj1i" path="res://gameOver.tscn" id="2_b7o74"]
 [ext_resource type="PackedScene" uid="uid://hgyp3210jyh5" path="res://board.tscn" id="3_wgifl"]
-[ext_resource type="Texture2D" uid="uid://cex4w78pvgcgo" path="res://green.png" id="4_vafhh"]
+[ext_resource type="Texture2D" uid="uid://cex4w78pvgcgo" path="res://sprites/green.png" id="4_n8203"]
+[ext_resource type="AudioStream" uid="uid://bnafhfim31cgr" path="res://snd_click.mp3" id="5_jffax"]
+[ext_resource type="AudioStream" uid="uid://dy0m3oqi8cidg" path="res://gameOver.mp3" id="6_8vi0i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kmbfk"]
 bg_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
@@ -106,4 +108,10 @@ text = "Home"
 [node name="greenDot" type="Sprite2D" parent="."]
 position = Vector2(90, 671)
 scale = Vector2(0.382143, 0.378587)
-texture = ExtResource("4_vafhh")
+texture = ExtResource("4_n8203")
+
+[node name="clickSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_jffax")
+
+[node name="gameOverSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_8vi0i")

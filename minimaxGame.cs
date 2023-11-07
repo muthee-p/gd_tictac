@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.IO.Pipes;
+using System.Threading.Tasks;
 
 
 public partial class minimaxGame : Node2D
@@ -15,7 +16,14 @@ public partial class minimaxGame : Node2D
 	private int cellSize;
 	private PackedScene circleScene; 
 	private PackedScene crossScene;
+	//private PackedScene colScene;
 	private Sprite2D greenDot;
+	private Sprite2D blackDot;
+	private Sprite2D greenDot2;
+	private Sprite2D blackDot2;
+	private Sprite2D rowWin;
+	private Sprite2D diag1Win;
+	private Sprite2D diag2Win;
 	private int rowSum;
 	private int colSum;
 	private int diag1Sum;
@@ -25,18 +33,43 @@ public partial class minimaxGame : Node2D
     private Label resultLabel;
     private const int MOUSE_BUTTON_LEFT= 1;
 	private minimax minimax;
+	private int player1Score;
+	private int player2Score;
+    private AudioStreamPlayer2D gameOverSound;
+	private Label turnLabel;
+	private Label player1ScoreLabel;
+	private Label player2ScoreLabel;
+	private bool isPlayerTurn = true;
 
     public override void _Ready()
 	{
-		player = 1;
+		player1Score =0;
+		player2Score = 0;
+		//player = 1;
 		boardSize = 640;
-		cellSize = 160;
+		cellSize = 145;
 		winner = 0;
 		gameOver = GetNode("gameOver") as CanvasLayer;
 		resultLabel = gameOver.GetNode("resultLabel") as Label;
 		greenDot = GetNode("greenDot") as Sprite2D;
-		greenDot.Position = new Vector2(90,665);
-		greenDot.Visible = true;
+		blackDot = GetNode("blackDot") as Sprite2D;
+		greenDot2 = GetNode("greenDot2") as Sprite2D;
+		blackDot2 = GetNode("blackDot2") as Sprite2D;
+		//colWin = GetNode("colWin") as Sprite2D;
+		rowWin = GetNode("rowWin") as Sprite2D;
+		diag1Win = GetNode("diag1Win") as Sprite2D;
+		diag2Win = GetNode("diag2Win") as Sprite2D;
+		gameOverSound = GetNode("gameOverSound") as AudioStreamPlayer2D;
+		turnLabel = GetNode("turnLabel") as Label;
+		player1ScoreLabel = GetNode("player1ScoreLabel") as Label;
+		player2ScoreLabel = GetNode("player2ScoreLabel") as Label;
+		greenDot.Position = new Vector2(90,670);
+		greenDot2.Position = new Vector2(580,670);
+		blackDot.Position = new Vector2(90,670);
+		blackDot2.Position = new Vector2(580,670);
+		
+
+		
 		minimax = new minimax();
 		NewGame();
 	}
@@ -51,118 +84,162 @@ public partial class minimaxGame : Node2D
 		{
 			if ((int)mouseButtonEvent.ButtonIndex == 1 && mouseButtonEvent.Pressed)
 			{
-				Vector2 mousePosition = mouseButtonEvent.Position;
-				if (mousePosition.X < boardSize)
-				{
-					gridPos = new Pos((int)((mousePosition.X -150) / 145), (int)((mousePosition.Y-485) / 145));
-					if (gridData[gridPos.y, gridPos.x] == 0)
+				 if (isPlayerTurn && !GetTree().Paused){
+					Vector2 mousePosition = mouseButtonEvent.Position;
+					if (mousePosition.X < boardSize)
 					{
-						//greenDot.Visible = false;
-						moves += 1;
-						gridData[gridPos.y, gridPos.x] = player;
-						
-						//player *= -1;
-						
-						
-						Vector2 makerPosition = new Vector2(185+gridPos.x * cellSize, 540+gridPos.y * cellSize);
-                    	CreateMarker(player, makerPosition);
-						player =-1;
-						
-						if(player == -1){
-							ComputerMove();
-						}
-
-						//player=1;
-						GD.Print(player);
-
-						if(CheckWin() != 0){
-							GetTree().Paused= true;
-							gameOver.Visible = true;
-							if(winner == 1){
-								resultLabel.Text=" Player 1";
-							}else if(winner == -1){
-								resultLabel.Text = "Player 2";
-							}
-						}else if(moves ==9 ){
-							gameOver.Visible = true;
-							resultLabel.Text = "Its a tie";
-						}
-						
+						gridPos = new Pos((int)((mousePosition.X -150) / cellSize), (int)((mousePosition.Y-485) / cellSize));
+						if (gridData[gridPos.y, gridPos.x] == 0)
+						{
 							
-					//CreateMarker(player, turnDots + new Vector2(cellSize/2,cellSize/2));
+							moves += 1;
+							gridData[gridPos.y, gridPos.x] = player;
+
+							Vector2 makerPosition = new Vector2(185+gridPos.x * cellSize, 530 +gridPos.y * cellSize);
+							CreateMarker(player, makerPosition);
+							isPlayerTurn = false;
+							Turn();
+							player =-1;
+							if(player == -1){
+								ComputerMove();
+							}
+							
+
+							//player=1;
+							GD.Print(player);
+
+							if(CheckWin() != 0){
+								GetTree().Paused= true;
+								gameOver.Visible = true;
+								if(winner == 1){
+									gameOverSound.Play();
+									resultLabel.Text="Player Wins";
+								}
+							}else if(moves ==9 ){
+								gameOverSound.Play();
+								player1ScoreLabel.Text= ""+player1Score;
+								player2ScoreLabel.Text= ""+player2Score;
+								gameOver.Visible = true;
+								resultLabel.Text = "Its a tie";
+								//NewGame();
+							}
+							
+							//NewGame();
+							//isPlayerTurn =false;
+						//CreateMarker(player, turnDots + new Vector2(cellSize/2,cellSize/2));
+						}
 					}
+					
 				}
 			}
 		}
 	}
 
 
-	private void ComputerMove()
+	private async void ComputerMove()
 	{
-		Vector2 bestMove =minimax.FindBestMove(gridData);
-		//greenDot.Visible = true;
-		int row = (int)bestMove.Y;
-		int col = (int)bestMove.X;
+		if(!isPlayerTurn){
+			await ToSignal(GetTree().CreateTimer(1),"timeout");
+			Vector2 bestMove =minimax.FindBestMove(gridData);
+			//greenDot.Visible = true;
+			int row = (int)bestMove.Y;
+			int col = (int)bestMove.X;
 
-		gridData[row, col] = player;
+			moves += 1;
+			gridData[row, col] = player; 
+				
 			
+			Vector2 makerPosition = new Vector2(185+ col * cellSize, 540 + row * cellSize);
+			GD.Print(makerPosition);
+			CreateMarker(player, makerPosition);
+			isPlayerTurn = true;
+			Turn();
+			player =1;
 			
-		Vector2 makerPosition = new Vector2(185+ col * cellSize, 540 + row * cellSize);
-		GD.Print(makerPosition);
-		CreateMarker(player, makerPosition);
+			//player *= -1;
+			if(CheckWin() != 0){
+				GetTree().Paused= true;
+				
+				gameOver.Visible = true;
+				if(winner == -1){
+					resultLabel.Text = "Computer Wins";
+				}
+				//NewGame();
+			}else if(moves ==9 ){
+				
+				gameOverSound.Play();
+				gameOver.Visible = true;
+				resultLabel.Text = "Its a tie";
 
-		player =1;
-		//player *= -1;
-		if(CheckWin() != 0){
-			GetTree().Paused= true;
-			gameOver.Visible = true;
-			if(winner == 1){
-				resultLabel.Text=" Player 1";
-			}else if(winner == -1){
-				resultLabel.Text = "Player 2";
+				//NewGame();
 			}
-		}else if(moves ==9 ){
-			gameOver.Visible = true;
-			resultLabel.Text = "Its a tie";
-		}
-
+			//ResetGame();
+			//NewGame();
 			//player = 1;
+		}
 	}
 	
-	
+	private void Turn()
+{
+    if(player== -1){
+		
+		turnLabel.Text = "Player's turn";
+			greenDot.Visible = true;
+			blackDot.Visible = false;
+			blackDot2.Visible = true;
+			greenDot2.Visible = false;
+			
+			
+		}else if( player == 1){
+			turnLabel.Text = "Computer's turn";
+			greenDot2.Visible = true;
+			blackDot.Visible = true;
+			greenDot.Visible = false;
+			blackDot2.Visible = false;
+		}
+}
 
 	private void NewGame(){
-		player = 1;
+		//player = 1;
 		gridData = new int[3,3];
 		gameOver.Visible = false;
 		rowSum=0;
 		colSum=0;
 		diag1Sum=0;
 		diag2Sum=0;
-		greenDot.Visible = true;
+		rowWin.Visible =false;
+		//colWin.Visible =false;
+		diag1Win.Visible =false;
+		diag2Win.Visible =false;
+		
 		GetTree().CallGroup("circles", "QueueFree");
 		GetTree().CallGroup("crosses", "QueueFree");
-		//CreateMarker(player, turnDotsPosition + new Vector2(cellSize/2, cellSize/2), true);
+
+		Turn();
     
 	}
 	private void CreateMarker(int player, Vector2 position) //bool turn=false)
 	{
 		if (player == 1)
 		{
-		circleScene = ResourceLoader.Load("res://circle.tscn") as PackedScene;
-        Sprite2D circle = circleScene.Instantiate() as Sprite2D;
-        circle.Position= position;
-        AddChild(circle);
-		}
-		if(player == -1)
-		{
+			AudioStreamPlayer2D clickSound = GetNode("clickSound") as AudioStreamPlayer2D;
+			clickSound.Play();
 			crossScene = ResourceLoader.Load("res://cross.tscn") as PackedScene;
         	Sprite2D cross = crossScene.Instantiate() as Sprite2D;
         	cross.Position = position;
         	AddChild(cross);
 		}
-	}
+		if(player == -1)
+		{
 
+			circleScene = ResourceLoader.Load("res://circle.tscn") as PackedScene;
+        	Sprite2D circle = circleScene.Instantiate() as Sprite2D;
+        	circle.Position= position;
+			AudioStreamPlayer2D clickSound = GetNode("clickSound") as AudioStreamPlayer2D;
+			clickSound.Play();
+        	AddChild(circle);
+		}
+	}
 	private int CheckWin(){
 		for(int i=0; i<gridData.Length; i++){
 			 rowSum = gridData[i,0]+gridData[i,1] + gridData[i,2];
@@ -171,14 +248,42 @@ public partial class minimaxGame : Node2D
 			 diag2Sum = gridData[0,2]+gridData[1,1] + gridData[2,0];
 		
 			if(rowSum == 3 || colSum == 3 || diag1Sum == 3 || diag2Sum == 3){
+				player1Score +=1;
+				player1ScoreLabel.Text= ""+player1Score;
 				winner = 1;
 				return 1;
 			}else if(rowSum == -3 || colSum == -3 || diag1Sum == -3 || diag2Sum == -3){
+				player2Score +=1;
+				player2ScoreLabel.Text= ""+player2Score;
 				winner = -1;
 				return -1;
+				
 			}
+		
+			// if(colSum == 3 || colSum == -3){
+			// 	if(CheckWin() != 0){
+			// 		colScene = ResourceLoader.Load("res://colScene.tscn") as PackedScene;
+        	// 		Sprite2D col = colScene.Instantiate() as Sprite2D;
+			// 		AddChild(col);
+			// 	}
+			
+			// }
+			// else if(rowSum == 3 || rowSum == -3){
+			// 	rowWin.Visible =true;
+			// 	rowWin.Position = new Vector2(i,670);
+			// }
+			// else if(diag1Sum == 3 || diag1Sum == -3){
+			// 	diag1Win.Visible = true;
+			// 	diag1Win.Position = new Vector2(150,600);
+			// }
+			// else if(diag2Sum == 3 || diag2Sum == -3){
+			// 	diag2Win.Visible = true;
+			// 	diag2Win.Position = new Vector2(580,600);
+			// }
+			
 		}
 		return winner;
-	}	
+	}
+	
 }
 

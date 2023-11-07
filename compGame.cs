@@ -24,11 +24,15 @@ public partial class compGame : Node2D
 	private int winner;
 	private int moves;
     private Label resultLabel;
+    private int player1Score;
+    private int player2Score;
     private const int MOUSE_BUTTON_LEFT= 1;
 
     public override void _Ready()
 	{
 		player = 1;
+		player1Score = 0;
+		player2Score = 0;
 		boardSize = 640;
 		cellSize = 160;
 		winner = 0;
@@ -96,8 +100,9 @@ public partial class compGame : Node2D
 	}
 
 
-	private void ComputerMove()
+	private async void ComputerMove()
 	{
+		await ToSignal(GetTree().CreateTimer(1),"timeout");
 		List<Vector2> availableMoves = GetAvailableMoves();
 		//greenDot.Visible = true;
 		if(availableMoves.Count > 0){
@@ -105,7 +110,7 @@ public partial class compGame : Node2D
 			int randomIndex = rand.Next(availableMoves.Count);
 			Vector2 move = availableMoves[randomIndex];
 			GD.Print(move);
-
+			moves += 1;
 			gridData[(int)move.Y, (int)move.X] = player;
 			
 			
@@ -160,15 +165,19 @@ public partial class compGame : Node2D
 	}
 	private void CreateMarker(int player, Vector2 position) //bool turn=false)
 	{
-		if (player == 1)
+		if (player == -1)
 		{
 		circleScene = ResourceLoader.Load("res://circle.tscn") as PackedScene;
         Sprite2D circle = circleScene.Instantiate() as Sprite2D;
         circle.Position= position;
+		AudioStreamPlayer2D clickSound = GetNode("clickSound") as AudioStreamPlayer2D;
+		clickSound.Play();
         AddChild(circle);
 		}
-		if(player == -1)
+		if(player == 1)
 		{
+			AudioStreamPlayer2D clickSound = GetNode("clickSound") as AudioStreamPlayer2D;
+			clickSound.Play();
 			crossScene = ResourceLoader.Load("res://cross.tscn") as PackedScene;
         	Sprite2D cross = crossScene.Instantiate() as Sprite2D;
         	cross.Position = position;
@@ -184,33 +193,23 @@ public partial class compGame : Node2D
 			 diag2Sum = gridData[0,2]+gridData[1,1] + gridData[2,0];
 		
 			if(rowSum == 3 || colSum == 3 || diag1Sum == 3 || diag2Sum == 3){
+				player1Score +=1;
+				AudioStreamPlayer2D gameOverSound = GetNode("gameOverSound") as AudioStreamPlayer2D;
+				gameOverSound.Play();
 				winner = 1;
 				return 1;
 			}else if(rowSum == -3 || colSum == -3 || diag1Sum == -3 || diag2Sum == -3){
+				player2Score +=1;
+				AudioStreamPlayer2D gameOverSound = GetNode("gameOverSound") as AudioStreamPlayer2D;
+				gameOverSound.Play();
 				winner = -1;
 				return -1;
 			}
 		}
 		return winner;
-	}	
-}
-
-public class Position
-{
-	public int x;
-	public int y;
-
-	public Position(int x, int y)
-	{
-		this.x = x;
-		this.y = y;
 	}
-
-	// public void Move(int x, int y)
-	// {
-	// 	this.x += x;
-	// 	this.y += y;
-	// }
 }
+
+
 
 

@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://ukn4fed3yni"]
+[gd_scene load_steps=8 format=3 uid="uid://ukn4fed3yni"]
 
 [ext_resource type="Script" path="res://game.cs" id="1_dve7f"]
 [ext_resource type="PackedScene" uid="uid://c22opdntsfj1i" path="res://gameOver.tscn" id="2_eta2e"]
 [ext_resource type="PackedScene" uid="uid://hgyp3210jyh5" path="res://board.tscn" id="2_fhpru"]
+[ext_resource type="AudioStream" uid="uid://bnafhfim31cgr" path="res://snd_click.mp3" id="4_oiitj"]
+[ext_resource type="AudioStream" uid="uid://dy0m3oqi8cidg" path="res://gameOver.mp3" id="5_tkv0x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kmbfk"]
 bg_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
@@ -101,3 +103,9 @@ offset_bottom = 53.0
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxFlat_foxvi")
 text = "Home"
+
+[node name="clickSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_oiitj")
+
+[node name="gameOverSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_tkv0x")

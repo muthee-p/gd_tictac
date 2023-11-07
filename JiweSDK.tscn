@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqqel13g8ph82"]
+
+[ext_resource type="Script" path="res://JiweOAuth2/JiweOAuth2.cs" id="1_fsm1o"]
+
+[node name="JiweSDK" type="Node2D"]
+script = ExtResource("1_fsm1o")
