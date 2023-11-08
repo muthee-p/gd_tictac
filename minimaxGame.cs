@@ -8,10 +8,7 @@ using System.Threading.Tasks;
 public partial class minimaxGame : Node2D
 {
 	private int player;
-
 	private int[,] gridData;
-    private bool game_over;
-
     private CanvasLayer gameOver;
     private Pos gridPos;
 	private int boardSize;
@@ -131,9 +128,7 @@ public partial class minimaxGame : Node2D
 								resetGameTimer.Connect("timeout", resetGame);
 							}
 							
-							//NewGame();
-							//isPlayerTurn =false;
-						//CreateMarker(player, turnDots + new Vector2(cellSize/2,cellSize/2));
+							
 						}
 					}
 					
@@ -156,7 +151,7 @@ public partial class minimaxGame : Node2D
 			gridData[row, col] = player; 
 
 			Vector2 makerPosition = new Vector2(185+ col * cellSize, 540 + row * cellSize);
-			GD.Print(makerPosition);
+			
 			CreateMarker(player, makerPosition);
 			isPlayerTurn = true;
 			Turn();
@@ -301,13 +296,13 @@ public partial class minimaxGame : Node2D
 
 
 			if(rowSum == 3 || colSum == 3 || diag1Sum == 3 || diag2Sum == 3){
-				game_over = true;
+				
 				player1Score +=1;
 				player1ScoreLabel.Text= ""+player1Score;
 				winner = 1;
 				return 1;
 			}else if(rowSum == -3 || colSum == -3 || diag1Sum == -3 || diag2Sum == -3){
-				game_over = true;
+				
 				player2Score +=1;
 				player2ScoreLabel.Text= ""+player2Score;
 				winner = -1;

@@ -98,6 +98,8 @@ theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxFlat_foxvi")
 text = "Home"
 
+[node name="dotsCrosses" type="Node2D" parent="."]
+
 [node name="clickSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_oiitj")
 
@@ -123,8 +125,6 @@ texture = ExtResource("7_hho85")
 position = Vector2(590, 673)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("6_apeh6")
-
-[node name="dotsCrosses" type="Node2D" parent="."]
 
 [node name="diag1Win" type="Sprite2D" parent="."]
 position = Vector2(334, 657)
