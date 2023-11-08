@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bnuv5wcjuhyh6"]
+[gd_scene load_steps=14 format=3 uid="uid://bnuv5wcjuhyh6"]
 
 [ext_resource type="Script" path="res://minimaxGame.cs" id="1_lxhbq"]
 [ext_resource type="PackedScene" uid="uid://c22opdntsfj1i" path="res://gameOver.tscn" id="2_y777o"]
@@ -6,8 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://bj0uef8bdwq0g" path="res://sprites/col.png" id="4_2bbjj"]
 [ext_resource type="Texture2D" uid="uid://cex4w78pvgcgo" path="res://sprites/green.png" id="4_xs0f5"]
 [ext_resource type="AudioStream" uid="uid://bnafhfim31cgr" path="res://snd_click.mp3" id="5_a0ifa"]
+[ext_resource type="Texture2D" uid="uid://dct7l23gru06u" path="res://sprites/row.png" id="5_adltd"]
 [ext_resource type="Texture2D" uid="uid://cwcsvruh77ho" path="res://sprites/0.png" id="5_mtflx"]
 [ext_resource type="AudioStream" uid="uid://dy0m3oqi8cidg" path="res://gameOver.mp3" id="6_0skgi"]
+[ext_resource type="Texture2D" uid="uid://dy2swpv1esnv0" path="res://sprites/left.png" id="6_7muck"]
+[ext_resource type="Texture2D" uid="uid://bjs1ftj01c28e" path="res://sprites/right.png" id="7_qnvn5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kmbfk"]
 bg_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
@@ -96,24 +99,24 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_foxvi")
 text = "Home"
 
 [node name="colWin" type="Sprite2D" parent="."]
-position = Vector2(89, 672)
-scale = Vector2(0.382143, 0.378587)
+position = Vector2(984.686, 627)
+scale = Vector2(0.405195, 0.417766)
 texture = ExtResource("4_2bbjj")
 
 [node name="rowWin" type="Sprite2D" parent="."]
-position = Vector2(89, 672)
-scale = Vector2(0.382143, 0.378587)
-texture = ExtResource("4_2bbjj")
+position = Vector2(978, 246)
+scale = Vector2(0.419525, 0.419264)
+texture = ExtResource("5_adltd")
 
 [node name="diag1Win" type="Sprite2D" parent="."]
-position = Vector2(89, 672)
+position = Vector2(321, 668)
 scale = Vector2(0.382143, 0.378587)
-texture = ExtResource("4_2bbjj")
+texture = ExtResource("6_7muck")
 
 [node name="diag2Win" type="Sprite2D" parent="."]
-position = Vector2(89, 672)
+position = Vector2(360, 662)
 scale = Vector2(0.382143, 0.378587)
-texture = ExtResource("4_2bbjj")
+texture = ExtResource("7_qnvn5")
 
 [node name="blackDot" type="Sprite2D" parent="."]
 position = Vector2(89, 672)
@@ -140,3 +143,5 @@ stream = ExtResource("5_a0ifa")
 
 [node name="gameOverSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_0skgi")
+
+[node name="dotsCrosses" type="Node2D" parent="."]

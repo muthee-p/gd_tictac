@@ -1,10 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://ukn4fed3yni"]
+[gd_scene load_steps=14 format=3 uid="uid://ukn4fed3yni"]
 
 [ext_resource type="Script" path="res://game.cs" id="1_dve7f"]
 [ext_resource type="PackedScene" uid="uid://c22opdntsfj1i" path="res://gameOver.tscn" id="2_eta2e"]
 [ext_resource type="PackedScene" uid="uid://hgyp3210jyh5" path="res://board.tscn" id="2_fhpru"]
 [ext_resource type="AudioStream" uid="uid://bnafhfim31cgr" path="res://snd_click.mp3" id="4_oiitj"]
 [ext_resource type="AudioStream" uid="uid://dy0m3oqi8cidg" path="res://gameOver.mp3" id="5_tkv0x"]
+[ext_resource type="Texture2D" uid="uid://cwcsvruh77ho" path="res://sprites/0.png" id="6_apeh6"]
+[ext_resource type="Texture2D" uid="uid://cex4w78pvgcgo" path="res://sprites/green.png" id="7_hho85"]
+[ext_resource type="Texture2D" uid="uid://dy2swpv1esnv0" path="res://sprites/left.png" id="8_jn1ds"]
+[ext_resource type="Texture2D" uid="uid://bjs1ftj01c28e" path="res://sprites/right.png" id="9_1b7th"]
+[ext_resource type="Texture2D" uid="uid://dct7l23gru06u" path="res://sprites/row.png" id="10_bt8t5"]
+[ext_resource type="Texture2D" uid="uid://bj0uef8bdwq0g" path="res://sprites/col.png" id="11_emgg0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kmbfk"]
 bg_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
@@ -49,7 +55,7 @@ theme_override_font_sizes/font_size = 20
 text = "Player One
 Cross"
 
-[node name="player1SoreLabel" type="Label" parent="."]
+[node name="player1ScoreLabel" type="Label" parent="."]
 offset_left = 15.0
 offset_top = 125.0
 offset_right = 132.0
@@ -57,13 +63,13 @@ offset_bottom = 193.0
 theme_override_font_sizes/font_size = 60
 text = "0"
 
-[node name="turn Label" type="Label" parent="."]
+[node name="turnLabel" type="Label" parent="."]
 offset_left = 315.0
 offset_top = 68.0
 offset_right = 432.0
 offset_bottom = 136.0
 theme_override_font_sizes/font_size = 20
-text = "Turn:
+text = "
 "
 
 [node name="player2 Label" type="Label" parent="."]
@@ -83,18 +89,6 @@ offset_bottom = 187.0
 theme_override_font_sizes/font_size = 60
 text = "0"
 
-[node name="turnDots" type="Panel" parent="."]
-offset_left = 72.0
-offset_top = 651.0
-offset_right = 112.0
-offset_bottom = 691.0
-
-[node name="turn dots 2" type="Panel" parent="."]
-offset_left = 569.0
-offset_top = 651.0
-offset_right = 609.0
-offset_bottom = 691.0
-
 [node name="Button" type="Button" parent="."]
 offset_left = 22.0
 offset_top = 20.0
@@ -109,3 +103,45 @@ stream = ExtResource("4_oiitj")
 
 [node name="gameOverSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_tkv0x")
+
+[node name="blackDot" type="Sprite2D" parent="."]
+position = Vector2(90, 673)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("6_apeh6")
+
+[node name="greenDot" type="Sprite2D" parent="."]
+position = Vector2(87, 674)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("7_hho85")
+
+[node name="greenDot2" type="Sprite2D" parent="."]
+position = Vector2(589, 672)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("7_hho85")
+
+[node name="blackDot2" type="Sprite2D" parent="."]
+position = Vector2(590, 673)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("6_apeh6")
+
+[node name="dotsCrosses" type="Node2D" parent="."]
+
+[node name="diag1Win" type="Sprite2D" parent="."]
+position = Vector2(334, 657)
+scale = Vector2(0.382143, 0.378587)
+texture = ExtResource("8_jn1ds")
+
+[node name="diag2Win" type="Sprite2D" parent="."]
+position = Vector2(360, 662)
+scale = Vector2(0.382143, 0.378587)
+texture = ExtResource("9_1b7th")
+
+[node name="rowWin" type="Sprite2D" parent="."]
+position = Vector2(978, 246)
+scale = Vector2(0.419525, 0.419264)
+texture = ExtResource("10_bt8t5")
+
+[node name="colWin" type="Sprite2D" parent="."]
+position = Vector2(984.686, 627)
+scale = Vector2(0.405195, 0.417766)
+texture = ExtResource("11_emgg0")

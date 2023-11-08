@@ -1,7 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+//using UnityEngine;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +10,10 @@ using System.Net;
 using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Runtime.InteropServices;
-using Newtonsoft.Json;
+using Godot;
+//using Newtonsoft.Json;
 
-public class JiweOAuth2 : MonoBehaviour
+public partial class JiweOAuth2 : Node
 {
 
     // client configuration
@@ -24,13 +25,13 @@ public class JiweOAuth2 : MonoBehaviour
     public string tokenEndpoint;
     public string userInfoEndpoint;
     public bool testMode;
-    [HideInInspector]
+    //[HideInInspector]
     public string wallet_access_token;
     // Start is called before the first frame update
     void Start()
     {
         doOAuth();
-        Time.timeScale = 0;
+        Engine.TimeScale = 0;
     }
 
   
@@ -72,7 +73,7 @@ public class JiweOAuth2 : MonoBehaviour
 
         // Opens request in the browser.
         System.Diagnostics.Process.Start(authorizationRequest);
-        Debug.Log(authorizationRequest);
+        GD.Print(authorizationRequest);
         // Waits for the OAuth authorization response.
         var context = await http.GetContextAsync();
 
@@ -81,12 +82,12 @@ public class JiweOAuth2 : MonoBehaviour
 
         // Sends an HTTP response to the browser.
         var response = context.Response;
-        Debug.Log(response);
+        GD.Print(response);
         string responseString = string.Format("<html><head><meta http-equiv='refresh' content='10;url=https://beta.jiwe.io'></head><body>Please return to the app.</body></html>");
         var buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
         response.ContentLength64 = buffer.Length;
         var responseOutput = response.OutputStream;
-        Debug.Log(responseOutput);
+        GD.Print(responseOutput);
         Task responseTask = responseOutput.WriteAsync(buffer, 0, buffer.Length).ContinueWith((task) =>
         {
             responseOutput.Close();
@@ -137,7 +138,7 @@ public class JiweOAuth2 : MonoBehaviour
             apiSecret
             );
 
-        Debug.Log(tokenRequestBody);
+        GD.Print(tokenRequestBody);
         // sends the request
         HttpWebRequest tokenRequest = (HttpWebRequest)WebRequest.Create(tokenEndpoint);
         tokenRequest.Method = "POST";
@@ -160,16 +161,16 @@ public class JiweOAuth2 : MonoBehaviour
                 string responseText = await reader.ReadToEndAsync();
                 Console.WriteLine(responseText);
                 // Convert to dictionary
-                Dictionary<string, string> tokenEndpointDecoded = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseText);
+                //Dictionary<string, string> tokenEndpointDecoded = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseText);
 
 
-                string access_token = tokenEndpointDecoded["access_token"];
-                string id_token = tokenEndpointDecoded["id_token"]; // Added id token
+                //string access_token = tokenEndpointDecoded["access_token"];
+                //string id_token = tokenEndpointDecoded["id_token"]; // Added id token
 
-                wallet_access_token = id_token; // authrorisation access_point
-                //Debug.Log(wallet_access_token);
-                Time.timeScale = 1;
-                userinfoCall(access_token);
+                //wallet_access_token = id_token; // authrorisation access_point
+                //GD.Print(wallet_access_token);
+                Engine.TimeScale = 1;
+                //userinfoCall(access_token);
             }
         }
         catch (WebException ex)
@@ -185,7 +186,7 @@ public class JiweOAuth2 : MonoBehaviour
                         // reads response body
                         string responseText = await reader.ReadToEndAsync();
                         output(responseText);
-                        Debug.Log("Can't Read");
+                        GD.Print("Can't Read");
                     }
                 }
 
@@ -220,7 +221,7 @@ public class JiweOAuth2 : MonoBehaviour
     public void output(string output)
     {
         Console.WriteLine(output);
-        Debug.Log(output);
+        GD.Print(output);
     }
 
     /// <summary>

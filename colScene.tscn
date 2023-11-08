@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://2b53wkkioty2"]
-
-[ext_resource type="Texture2D" uid="uid://bj0uef8bdwq0g" path="res://sprites/col.png" id="1_h15kp"]
-
-[node name="colScene" type="Sprite2D"]
-texture = ExtResource("1_h15kp")
