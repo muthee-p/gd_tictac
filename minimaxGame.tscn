@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bnuv5wcjuhyh6"]
+[gd_scene load_steps=20 format=3 uid="uid://bnuv5wcjuhyh6"]
 
 [ext_resource type="Script" path="res://minimaxGame.cs" id="1_lxhbq"]
 [ext_resource type="PackedScene" uid="uid://c22opdntsfj1i" path="res://gameOver.tscn" id="2_y777o"]
@@ -11,6 +11,8 @@
 [ext_resource type="AudioStream" uid="uid://dy0m3oqi8cidg" path="res://gameOver.mp3" id="6_0skgi"]
 [ext_resource type="Texture2D" uid="uid://dy2swpv1esnv0" path="res://sprites/left.png" id="6_7muck"]
 [ext_resource type="Texture2D" uid="uid://bjs1ftj01c28e" path="res://sprites/right.png" id="7_qnvn5"]
+[ext_resource type="Texture2D" uid="uid://ct5te1o1st0s8" path="res://sprites/soundOn.svg" id="12_3y1n7"]
+[ext_resource type="Texture2D" uid="uid://cagkhw371mlmi" path="res://sprites/muted.svg" id="12_7hyyk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kmbfk"]
 bg_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
@@ -30,6 +32,26 @@ corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qilcp"]
+bg_color = Color(0.945098, 0.592157, 0.262745, 1)
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a5cf4"]
+bg_color = Color(0.945098, 0.592157, 0.262745, 1)
+corner_radius_top_left = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3h7sn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jhk3m"]
+bg_color = Color(0.0862745, 0.0862745, 0.0862745, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.227451, 0.227451, 0.227451, 1)
 
 [node name="minimaxGame" type="Node2D"]
 script = ExtResource("1_lxhbq")
@@ -52,7 +74,7 @@ offset_top = 67.0
 offset_right = 131.0
 offset_bottom = 135.0
 theme_override_font_sizes/font_size = 20
-text = "Player One
+text = "Player
 Cross"
 
 [node name="player1ScoreLabel" type="Label" parent="."]
@@ -78,7 +100,7 @@ offset_top = 65.0
 offset_right = 668.0
 offset_bottom = 133.0
 theme_override_font_sizes/font_size = 20
-text = "Player Two
+text = "Computer
 Circle"
 
 [node name="player2ScoreLabel" type="Label" parent="."]
@@ -89,7 +111,7 @@ offset_bottom = 187.0
 theme_override_font_sizes/font_size = 60
 text = "0"
 
-[node name="Button" type="Button" parent="."]
+[node name="homeButton" type="Button" parent="."]
 offset_left = 22.0
 offset_top = 20.0
 offset_right = 96.0
@@ -145,3 +167,51 @@ stream = ExtResource("5_a0ifa")
 stream = ExtResource("6_0skgi")
 
 [node name="dotsCrosses" type="Node2D" parent="."]
+
+[node name="hardPlay" type="Button" parent="."]
+offset_left = 549.0
+offset_top = 263.0
+offset_right = 658.0
+offset_bottom = 294.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_qilcp")
+disabled = true
+text = "Hard"
+
+[node name="easyPlay" type="Button" parent="."]
+offset_left = 441.0
+offset_top = 263.0
+offset_right = 555.0
+offset_bottom = 294.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_a5cf4")
+text = "Easy"
+
+[node name="muteIcon" type="Sprite2D" parent="."]
+position = Vector2(597, 38)
+scale = Vector2(0.0527344, 0.0527344)
+texture = ExtResource("12_7hyyk")
+
+[node name="soundOnIcon" type="Sprite2D" parent="."]
+position = Vector2(596.625, 36.625)
+scale = Vector2(0.0444337, 0.0444337)
+texture = ExtResource("12_3y1n7")
+
+[node name="soundOn" type="Button" parent="."]
+offset_left = 583.0
+offset_top = 21.0
+offset_right = 1203.0
+offset_bottom = 621.0
+scale = Vector2(0.05, 0.05)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3h7sn")
+
+[node name="finishButton" type="Button" parent="."]
+offset_left = 458.0
+offset_top = 23.0
+offset_right = 562.0
+offset_bottom = 54.0
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_jhk3m")
+text = "Finish Game"
+
+[connection signal="pressed" from="homeButton" to="." method="_on_home_button_pressed"]
+[connection signal="pressed" from="easyPlay" to="." method="_on_easy_play_pressed"]
+[connection signal="pressed" from="soundOn" to="." method="_on_sound_on_pressed"]

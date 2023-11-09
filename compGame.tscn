@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dn5iidb1amee8"]
+[gd_scene load_steps=19 format=3 uid="uid://dn5iidb1amee8"]
 
 [ext_resource type="Script" path="res://compGame.cs" id="1_eyp2p"]
 [ext_resource type="PackedScene" uid="uid://c22opdntsfj1i" path="res://gameOver.tscn" id="2_b7o74"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://dy2swpv1esnv0" path="res://sprites/left.png" id="9_na8is"]
 [ext_resource type="Texture2D" uid="uid://bjs1ftj01c28e" path="res://sprites/right.png" id="10_ryiq4"]
 [ext_resource type="Texture2D" uid="uid://cwcsvruh77ho" path="res://sprites/0.png" id="11_1latp"]
+[ext_resource type="Texture2D" uid="uid://cagkhw371mlmi" path="res://sprites/muted.svg" id="12_dtakk"]
+[ext_resource type="Texture2D" uid="uid://ct5te1o1st0s8" path="res://sprites/soundOn.svg" id="12_lojqf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kmbfk"]
 bg_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
@@ -30,6 +32,17 @@ corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5sbn"]
+corner_radius_top_left = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jkt5h"]
+bg_color = Color(0.945098, 0.592157, 0.262745, 1)
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2eeem"]
 
 [node name="compGame" type="Node2D"]
 script = ExtResource("1_eyp2p")
@@ -52,7 +65,7 @@ offset_top = 67.0
 offset_right = 131.0
 offset_bottom = 135.0
 theme_override_font_sizes/font_size = 20
-text = "Player One
+text = "Player
 Cross"
 
 [node name="player1ScoreLabel" type="Label" parent="."]
@@ -78,7 +91,7 @@ offset_top = 65.0
 offset_right = 668.0
 offset_bottom = 133.0
 theme_override_font_sizes/font_size = 20
-text = "Player Two
+text = "Computer
 Circle"
 
 [node name="player2ScoreLabel" type="Label" parent="."]
@@ -91,7 +104,7 @@ text = "0"
 
 [node name="dotsCrosses" type="Node2D" parent="."]
 
-[node name="Button" type="Button" parent="."]
+[node name="homeButton" type="Button" parent="."]
 offset_left = 22.0
 offset_top = 20.0
 offset_right = 96.0
@@ -145,3 +158,43 @@ texture = ExtResource("11_1latp")
 position = Vector2(87, 674)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("4_n8203")
+
+[node name="easyPlay" type="Button" parent="."]
+offset_left = 441.0
+offset_top = 263.0
+offset_right = 555.0
+offset_bottom = 294.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_w5sbn")
+disabled = true
+text = "Easy"
+
+[node name="hardPlay" type="Button" parent="."]
+offset_left = 549.0
+offset_top = 263.0
+offset_right = 658.0
+offset_bottom = 294.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_jkt5h")
+text = "Hard"
+
+[node name="muteIcon" type="Sprite2D" parent="."]
+position = Vector2(597, 38)
+scale = Vector2(0.0527344, 0.0527344)
+texture = ExtResource("12_dtakk")
+
+[node name="soundOnIcon" type="Sprite2D" parent="."]
+position = Vector2(596.625, 36.625)
+scale = Vector2(0.0444337, 0.0444337)
+texture = ExtResource("12_lojqf")
+
+[node name="soundOn" type="Button" parent="."]
+offset_left = 583.0
+offset_top = 21.0
+offset_right = 1203.0
+offset_bottom = 621.0
+scale = Vector2(0.05, 0.05)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2eeem")
+toggle_mode = true
+
+[connection signal="pressed" from="homeButton" to="." method="_on_home_button_pressed"]
+[connection signal="pressed" from="hardPlay" to="." method="_on_hard_play_pressed"]
+[connection signal="pressed" from="soundOn" to="." method="_on_sound_on_pressed"]

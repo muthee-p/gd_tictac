@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ukn4fed3yni"]
+[gd_scene load_steps=17 format=3 uid="uid://ukn4fed3yni"]
 
 [ext_resource type="Script" path="res://game.cs" id="1_dve7f"]
 [ext_resource type="PackedScene" uid="uid://c22opdntsfj1i" path="res://gameOver.tscn" id="2_eta2e"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://bjs1ftj01c28e" path="res://sprites/right.png" id="9_1b7th"]
 [ext_resource type="Texture2D" uid="uid://dct7l23gru06u" path="res://sprites/row.png" id="10_bt8t5"]
 [ext_resource type="Texture2D" uid="uid://bj0uef8bdwq0g" path="res://sprites/col.png" id="11_emgg0"]
+[ext_resource type="Texture2D" uid="uid://cagkhw371mlmi" path="res://sprites/muted.svg" id="12_ucn2j"]
+[ext_resource type="Texture2D" uid="uid://ct5te1o1st0s8" path="res://sprites/soundOn.svg" id="12_x8r6n"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kmbfk"]
 bg_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
@@ -30,6 +32,8 @@ corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oyyyf"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_dve7f")
@@ -89,7 +93,7 @@ offset_bottom = 187.0
 theme_override_font_sizes/font_size = 60
 text = "0"
 
-[node name="Button" type="Button" parent="."]
+[node name="homeButton" type="Button" parent="."]
 offset_left = 22.0
 offset_top = 20.0
 offset_right = 96.0
@@ -100,10 +104,10 @@ text = "Home"
 
 [node name="dotsCrosses" type="Node2D" parent="."]
 
-[node name="clickSound" type="AudioStreamPlayer2D" parent="."]
+[node name="clickSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_oiitj")
 
-[node name="gameOverSound" type="AudioStreamPlayer2D" parent="."]
+[node name="gameOverSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_tkv0x")
 
 [node name="blackDot" type="Sprite2D" parent="."]
@@ -145,3 +149,24 @@ texture = ExtResource("10_bt8t5")
 position = Vector2(984.686, 627)
 scale = Vector2(0.405195, 0.417766)
 texture = ExtResource("11_emgg0")
+
+[node name="muteIcon" type="Sprite2D" parent="."]
+position = Vector2(597, 38)
+scale = Vector2(0.0527344, 0.0527344)
+texture = ExtResource("12_ucn2j")
+
+[node name="soundOnIcon" type="Sprite2D" parent="."]
+position = Vector2(596.625, 36.625)
+scale = Vector2(0.0444337, 0.0444337)
+texture = ExtResource("12_x8r6n")
+
+[node name="soundOn" type="Button" parent="."]
+offset_left = 583.0
+offset_top = 21.0
+offset_right = 1203.0
+offset_bottom = 621.0
+scale = Vector2(0.05, 0.05)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_oyyyf")
+
+[connection signal="pressed" from="homeButton" to="." method="_on_home_button_pressed"]
+[connection signal="pressed" from="soundOn" to="." method="_on_sound_on_pressed"]
