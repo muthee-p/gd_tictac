@@ -1,20 +1,27 @@
-[gd_scene load_steps=11 format=3 uid="uid://dndvyxbo4jdj1"]
+[gd_scene load_steps=14 format=3 uid="uid://dndvyxbo4jdj1"]
 
 [ext_resource type="Texture2D" uid="uid://cciyi2miybur0" path="res://sprites/header.png" id="1_8h7s6"]
 [ext_resource type="Script" path="res://menu.cs" id="1_ksltr"]
 [ext_resource type="Texture2D" uid="uid://bphjitsna2kws" path="res://sprites/singlePlayer.png" id="2_ese84"]
 [ext_resource type="Texture2D" uid="uid://davb2ereww7ej" path="res://sprites/twoPlayer.png" id="3_g5tm7"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqam2"]
+bg_color = Color(0.0705882, 0.0705882, 0.0705882, 1)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3yryg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jqdxx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mrna2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_56pxp"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lmb83"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uw7gu"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y3uxv"]
-bg_color = Color(0.105882, 0.105882, 0.105882, 1)
+bg_color = Color(0.168627, 0.168627, 0.168627, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -32,6 +39,12 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_ksltr")
 
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 679.0
+offset_bottom = 997.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oqam2")
+
 [node name="Header" type="Sprite2D" parent="."]
 position = Vector2(347, 274)
 scale = Vector2(0.347059, 0.347059)
@@ -46,6 +59,7 @@ offset_bottom = 767.0
 scale = Vector2(0.2, 0.2)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_3yryg")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_jqdxx")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_mrna2")
 icon = ExtResource("2_ese84")
 
 [node name="TwoPlayer" type="Button" parent="."]
@@ -57,6 +71,7 @@ offset_bottom = 766.0
 scale = Vector2(0.2, 0.2)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_56pxp")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_lmb83")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_uw7gu")
 icon = ExtResource("3_g5tm7")
 
 [node name="Exit" type="Button" parent="."]

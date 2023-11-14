@@ -14,6 +14,7 @@ public partial class compGame : Node2D
 	private int cellSize;
 	private PackedScene circleScene;
 	private PackedScene crossScene;
+	private PackedScene finishScene;
 	private Sprite2D greenDot;
 	private Sprite2D blackDot;
 	private Sprite2D greenDot2;
@@ -43,7 +44,9 @@ public partial class compGame : Node2D
 	private Sprite2D muteIcon;
     private Button soundOn;
     private bool isMasterAudioMuted;
-	
+	private Label winnerLabel;
+	private Label finalScoreLabel;
+	private Label scoreComparison;
 
 	public override void _Ready()
 	{
@@ -84,14 +87,14 @@ public partial class compGame : Node2D
 
 	public override void _Input(InputEvent @event)
 	{
+		if (isGameOver == true || GetTree().Paused) 
+    	{
+        	return;
+   		}
 		if (@event is InputEventMouseButton mouseButtonEvent)
 		{
 			if ((int)mouseButtonEvent.ButtonIndex == 1 && mouseButtonEvent.Pressed)
 			{
-				if (isGameOver)
-				{
-					return;
-				}
 				if (isPlayerTurn && !GetTree().Paused && isGameOver == false)
 				{
 					Vector2 mousePosition = mouseButtonEvent.Position;
@@ -106,34 +109,39 @@ public partial class compGame : Node2D
 
 							Vector2 makerPosition = new Vector2(205 + gridPos.x * cellSize, 530 + gridPos.y * cellSize);
 							CreateMarker(player, makerPosition);
-							if (isGameOver == false)
+								
+							if (isGameOver == false && !GetTree().Paused)
 							{
 								isPlayerTurn = false;
 								Turn();
 								player = -1;
 								ComputerMove();
 							}
-
-							CheckTie();
-
+							
+							
 						}
 					}
-
+					CheckTie();
 				}
 			}
 		}
 	}
 
 
+
 	private async void ComputerMove()
 	{
-		if (isGameOver)
-		{
-			return;
-		}
+		if (isGameOver == true) 
+    	{
+        	return;
+   		}
+		if (isGameOver == false ) 
+    	{
+        // Timer timer= GetNode("Timer") as Timer;
+		// timer.Start();
 		await ToSignal(GetTree().CreateTimer(1), "timeout");
 		List<Vector2> availableMoves = GetAvailableMoves();
-		//greenDot.Visible = true;
+		//GD.Print(isGameOver);
 		if (availableMoves.Count > 0)
 		{
 			Random rand = new Random();
@@ -142,23 +150,25 @@ public partial class compGame : Node2D
 
 			moves += 1;
 			gridData[(int)move.Y, (int)move.X] = player;
-
-
-			Vector2 makerPosition = new Vector2(185 + move.X * cellSize, 540 + move.Y * cellSize);
-			CreateMarker(player, makerPosition);
+			
 			if (isGameOver == false)
 			{
+				Vector2 makerPosition = new Vector2(185 + move.X * cellSize, 540 + move.Y * cellSize);
+				CreateMarker(player, makerPosition);
 				isPlayerTurn = true;
 				Turn();
 				player = 1;
 			}
 
-			CheckTie();
+			
+		}
+		CheckTie();
 		}
 
 	}
 	private List<Vector2> GetAvailableMoves()
 	{
+		
 		List<Vector2> availableMoves = new List<Vector2>();
 		for (int y = 0; y < 3; y++)
 		{
@@ -271,6 +281,7 @@ public partial class compGame : Node2D
 	}
 	private int CheckWin()
 	{
+		
 		for (int i = 0; i < gridData.Length; i++)
 		{
 			rowSum = gridData[i, 0] + gridData[i, 1] + gridData[i, 2];
@@ -301,7 +312,6 @@ public partial class compGame : Node2D
 
 
 
-
 			if (rowSum == 3 || colSum == 3 || diag1Sum == 3 || diag2Sum == 3)
 			{
 				isGameOver = true;
@@ -317,14 +327,14 @@ public partial class compGame : Node2D
 				return -1;
 
 			}
-
-
-
 		}
 		return winner;
 	}
 	private void CheckTie()
 	{
+		if(isGameOver == true){
+			return;
+		}
 		if (moves == 9)
 		{
 			player1Score += 1;
@@ -346,14 +356,17 @@ public partial class compGame : Node2D
 			gameOverSound.Play();
 			isGameOver = true;
 			gameOver.Visible = true;
+			
 			if (winner == 1)
 			{
+				isGameOver = true;
 				player1Score += 1;
 				player1ScoreLabel.Text = "" + player1Score;
 				resultLabel.Text = "Cross Wins";
 			}
 			else if (winner == -1)
 			{
+				isGameOver = true;
 				player2Score += 1;
 				player2ScoreLabel.Text = "" + player2Score;
 				resultLabel.Text = "Circle Wins";
@@ -373,7 +386,7 @@ public partial class compGame : Node2D
 	}
 	private void _on_sound_on_pressed()
 	{ 
-		//musicBus = AudioServer.GetBusIndex("music");
+		
 		isMasterAudioMuted = !isMasterAudioMuted;
 
     AudioServer.SetBusMute(AudioServer.GetBusIndex("Master"), isMasterAudioMuted);
@@ -385,5 +398,30 @@ public partial class compGame : Node2D
 			muteIcon.Visible= false;
 			soundOnIcon.Visible= true;
 		}
+	}
+	private async void _on_finish_button_pressed(){
+		finishScene = ResourceLoader.Load("res://finishGame.tscn") as PackedScene;
+			CanvasLayer finishGame = finishScene.Instantiate() as CanvasLayer;
+			AddChild(finishGame);
+			scoreComparison = finishGame.GetNode("scoreComparison") as Label;
+			finalScoreLabel = finishGame.GetNode("finalScoreLabel") as Label;
+			winnerLabel = finishGame.GetNode("finalScoreLabel") as Label;
+			scoreComparison.Text = "Player " +player1Score + " - " +player2Score +" Computer";
+		if(player1Score > player2Score){
+			winnerLabel.Text = "Player Wins!";
+			finalScoreLabel.Text = ""+player1Score;
+		}
+		else if(player1Score < player2Score){
+			winnerLabel.Text = "Computer Wins!";
+			finalScoreLabel.Text = "0";
+		}
+		else if(player1Score == player2Score){
+			winnerLabel.Text = "it's a Tie";
+			finalScoreLabel.Text = ""+player1Score;
+		}
+		await ToSignal(GetTree().CreateTimer(5), "timeout");
+		finishGame.QueueFree();
+		GetTree().ChangeSceneToFile("res://menu.tscn");
+		
 	}
 }

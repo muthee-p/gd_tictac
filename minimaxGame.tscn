@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bnuv5wcjuhyh6"]
+[gd_scene load_steps=21 format=3 uid="uid://bnuv5wcjuhyh6"]
 
 [ext_resource type="Script" path="res://minimaxGame.cs" id="1_lxhbq"]
 [ext_resource type="PackedScene" uid="uid://c22opdntsfj1i" path="res://gameOver.tscn" id="2_y777o"]
@@ -13,6 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://bjs1ftj01c28e" path="res://sprites/right.png" id="7_qnvn5"]
 [ext_resource type="Texture2D" uid="uid://ct5te1o1st0s8" path="res://sprites/soundOn.svg" id="12_3y1n7"]
 [ext_resource type="Texture2D" uid="uid://cagkhw371mlmi" path="res://sprites/muted.svg" id="12_7hyyk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lntmo"]
+bg_color = Color(0.0196078, 0.0196078, 0.0196078, 0.968627)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kmbfk"]
 bg_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
@@ -55,6 +58,12 @@ border_color = Color(0.227451, 0.227451, 0.227451, 1)
 
 [node name="minimaxGame" type="Node2D"]
 script = ExtResource("1_lxhbq")
+
+[node name="background" type="Panel" parent="."]
+offset_top = -2.0
+offset_right = 685.0
+offset_bottom = 999.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_lntmo")
 
 [node name="gameOver" parent="." instance=ExtResource("2_y777o")]
 
@@ -131,12 +140,12 @@ scale = Vector2(0.419525, 0.419264)
 texture = ExtResource("5_adltd")
 
 [node name="diag1Win" type="Sprite2D" parent="."]
-position = Vector2(321, 668)
+position = Vector2(336, 649)
 scale = Vector2(0.382143, 0.378587)
 texture = ExtResource("6_7muck")
 
 [node name="diag2Win" type="Sprite2D" parent="."]
-position = Vector2(360, 662)
+position = Vector2(352, 662)
 scale = Vector2(0.382143, 0.378587)
 texture = ExtResource("7_qnvn5")
 
@@ -215,3 +224,4 @@ text = "Finish Game"
 [connection signal="pressed" from="homeButton" to="." method="_on_home_button_pressed"]
 [connection signal="pressed" from="easyPlay" to="." method="_on_easy_play_pressed"]
 [connection signal="pressed" from="soundOn" to="." method="_on_sound_on_pressed"]
+[connection signal="pressed" from="finishButton" to="." method="_on_finish_button_pressed"]

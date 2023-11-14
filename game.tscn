@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ukn4fed3yni"]
+[gd_scene load_steps=18 format=3 uid="uid://ukn4fed3yni"]
 
 [ext_resource type="Script" path="res://game.cs" id="1_dve7f"]
 [ext_resource type="PackedScene" uid="uid://c22opdntsfj1i" path="res://gameOver.tscn" id="2_eta2e"]
@@ -13,6 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://bj0uef8bdwq0g" path="res://sprites/col.png" id="11_emgg0"]
 [ext_resource type="Texture2D" uid="uid://cagkhw371mlmi" path="res://sprites/muted.svg" id="12_ucn2j"]
 [ext_resource type="Texture2D" uid="uid://ct5te1o1st0s8" path="res://sprites/soundOn.svg" id="12_x8r6n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8yxcm"]
+bg_color = Color(0.0196078, 0.0196078, 0.0196078, 0.968627)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kmbfk"]
 bg_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
@@ -37,6 +40,12 @@ corner_radius_bottom_left = 3
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_dve7f")
+
+[node name="background" type="Panel" parent="."]
+offset_top = -2.0
+offset_right = 685.0
+offset_bottom = 999.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8yxcm")
 
 [node name="gameOver" parent="." instance=ExtResource("2_eta2e")]
 

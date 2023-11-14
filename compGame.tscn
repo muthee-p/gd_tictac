@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dn5iidb1amee8"]
+[gd_scene load_steps=21 format=3 uid="uid://dn5iidb1amee8"]
 
 [ext_resource type="Script" path="res://compGame.cs" id="1_eyp2p"]
 [ext_resource type="PackedScene" uid="uid://c22opdntsfj1i" path="res://gameOver.tscn" id="2_b7o74"]
@@ -13,6 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://cwcsvruh77ho" path="res://sprites/0.png" id="11_1latp"]
 [ext_resource type="Texture2D" uid="uid://cagkhw371mlmi" path="res://sprites/muted.svg" id="12_dtakk"]
 [ext_resource type="Texture2D" uid="uid://ct5te1o1st0s8" path="res://sprites/soundOn.svg" id="12_lojqf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y6tbn"]
+bg_color = Color(0.0196078, 0.0196078, 0.0196078, 0.968627)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kmbfk"]
 bg_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
@@ -44,8 +47,22 @@ corner_radius_bottom_right = 3
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2eeem"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmv7f"]
+bg_color = Color(0.0862745, 0.0862745, 0.0862745, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.227451, 0.227451, 0.227451, 1)
+
 [node name="compGame" type="Node2D"]
 script = ExtResource("1_eyp2p")
+
+[node name="background" type="Panel" parent="."]
+offset_top = -2.0
+offset_right = 685.0
+offset_bottom = 999.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_y6tbn")
 
 [node name="gameOver" parent="." instance=ExtResource("2_b7o74")]
 
@@ -195,6 +212,18 @@ scale = Vector2(0.05, 0.05)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_2eeem")
 toggle_mode = true
 
+[node name="finishButton" type="Button" parent="."]
+offset_left = 458.0
+offset_top = 23.0
+offset_right = 562.0
+offset_bottom = 54.0
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_cmv7f")
+text = "Finish Game"
+
+[node name="Timer" type="Timer" parent="."]
+
 [connection signal="pressed" from="homeButton" to="." method="_on_home_button_pressed"]
 [connection signal="pressed" from="hardPlay" to="." method="_on_hard_play_pressed"]
 [connection signal="pressed" from="soundOn" to="." method="_on_sound_on_pressed"]
+[connection signal="pressed" from="finishButton" to="." method="_on_finish_button_pressed"]

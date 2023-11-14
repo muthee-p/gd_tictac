@@ -11,7 +11,7 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Runtime.InteropServices;
 using Godot;
-//using Newtonsoft.Json;
+using Newtonsoft.Json;
 
 public partial class JiweOAuth2 : Node
 {
@@ -161,16 +161,16 @@ public partial class JiweOAuth2 : Node
                 string responseText = await reader.ReadToEndAsync();
                 Console.WriteLine(responseText);
                 // Convert to dictionary
-                //Dictionary<string, string> tokenEndpointDecoded = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseText);
+                Dictionary<string, string> tokenEndpointDecoded = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseText);
 
 
-                //string access_token = tokenEndpointDecoded["access_token"];
-                //string id_token = tokenEndpointDecoded["id_token"]; // Added id token
+                string access_token = tokenEndpointDecoded["access_token"];
+                string id_token = tokenEndpointDecoded["id_token"]; // Added id token
 
-                //wallet_access_token = id_token; // authrorisation access_point
-                //GD.Print(wallet_access_token);
+                wallet_access_token = id_token; // authrorisation access_point
+                GD.Print(wallet_access_token);
                 Engine.TimeScale = 1;
-                //userinfoCall(access_token);
+                userinfoCall(access_token);
             }
         }
         catch (WebException ex)

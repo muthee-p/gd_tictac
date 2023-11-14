@@ -74,6 +74,24 @@ public class minimax
 		}
 	}
 	private int Evaluate(int[,] board){
+		for (int i = 0; i < 3; i++)
+    {
+        // Check rows and columns
+        if ((board[i, 0] != 0 && board[i, 0] == board[i, 1] && board[i, 1] == board[i, 2]) ||
+            (board[0, i] != 0 && board[0, i] == board[1, i] && board[1, i] == board[2, i]))
+        {
+            if (board[i, 0] == 1) return 10; // Player wins
+            else if (board[i, 0] == -1) return -10; // AI wins
+        }
+    }
+
+    // Check diagonals
+    if ((board[0, 0] != 0 && board[0, 0] == board[1, 1] && board[1, 1] == board[2, 2]) ||
+        (board[0, 2] != 0 && board[0, 2] == board[1, 1] && board[1, 1] == board[2, 0]))
+    {
+        if (board[1, 1] == 1) return 10; // Player wins
+        else if (board[1, 1] == -1) return -10; // AI wins
+    }
 		return 0;
 	}
 	private bool isBoardFull(int[,] board){
