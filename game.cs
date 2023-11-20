@@ -152,20 +152,22 @@ public partial class game : Node2D
 		{
 
 			turnLabel.Text = "Circle's turn";
-			greenDot.Visible = true;
-			blackDot.Visible = false;
-			blackDot2.Visible = true;
-			greenDot2.Visible = false;
-
+			greenDot2.Visible = true;
+			blackDot.Visible = true;
+			greenDot.Visible = false;
+			blackDot2.Visible = false;
 
 		}
 		else if (player == 1)
 		{
 			turnLabel.Text = "Cross's turn";
-			greenDot2.Visible = true;
-			blackDot.Visible = true;
-			greenDot.Visible = false;
-			blackDot2.Visible = false;
+			
+
+			greenDot.Visible = true;
+			blackDot.Visible = false;
+			blackDot2.Visible = true;
+			greenDot2.Visible = false;
+
 		}
 	}
 	private void ResetGame()
@@ -197,7 +199,27 @@ public partial class game : Node2D
 			markers[i].QueueFree();
 		}
 
-		Turn();
+		if (player == 1)
+		{
+
+			turnLabel.Text = "Circle's turn";
+			greenDot2.Visible = true;
+			blackDot.Visible = true;
+			greenDot.Visible = false;
+			blackDot2.Visible = false;
+
+
+		}
+		else if (player == -1)
+		{
+			turnLabel.Text = "Cross's turn";
+			
+
+			greenDot.Visible = true;
+			blackDot.Visible = false;
+			blackDot2.Visible = true;
+			greenDot2.Visible = false;
+		}
 
 	}
 	private void CreateMarker(int player, Vector2 position) //bool turn=false)

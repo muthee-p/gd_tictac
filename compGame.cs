@@ -244,13 +244,25 @@ public partial class compGame : Node2D
 		{
 			isPlayerTurn = false;
 			ComputerMove();
+			turnLabel.Text = "Computer's turn";
+			
+			
+			greenDot2.Visible = true;
+			blackDot.Visible = true;
+			greenDot.Visible = false;
+			blackDot2.Visible = false;
 
 		}
 		else if (player == 1)
 		{
 			isPlayerTurn = true;
+			turnLabel.Text = "Player's turn";
+			greenDot.Visible = true;
+			blackDot.Visible = false;
+			blackDot2.Visible = true;
+			greenDot2.Visible = false;
 		}
-		Turn();
+		
 
 	}
 

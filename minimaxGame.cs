@@ -48,6 +48,7 @@ public partial class minimaxGame : Node2D
     private Button soundOn;
     private bool isMasterAudioMuted;
 	private bool isGameOver;
+	private Random random = new Random();
 
 	public override void _Ready()
 	{
@@ -192,7 +193,7 @@ public partial class minimaxGame : Node2D
 	}
 	private void NewGame()
 	{
-		player = (player == 1) ? -1 : 1;
+		 player = (random.Next(0, 2) == 0) ? 1 : -1;
 		gridData = new int[3, 3];
 		gameOver.Visible = false;
 		rowSum = 0;
@@ -213,16 +214,27 @@ public partial class minimaxGame : Node2D
 		}
 
 
-		Turn();
-
 		if (player == -1)
 		{
+			turnLabel.Text = "computer's turn";
+			greenDot2.Visible = true;
+			blackDot.Visible = true;
+			greenDot.Visible = false;
+			blackDot2.Visible = false;
+
 			isPlayerTurn = false;
 			ComputerMove();
 
 		}
 		if (player == 1)
 		{
+			turnLabel.Text = "Player's turn";
+			
+
+			greenDot.Visible = true;
+			blackDot.Visible = false;
+			blackDot2.Visible = true;
+			greenDot2.Visible = false;
 			isPlayerTurn = true;
 		}
 

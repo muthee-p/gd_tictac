@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bnuv5wcjuhyh6"]
+[gd_scene load_steps=22 format=3 uid="uid://bnuv5wcjuhyh6"]
 
 [ext_resource type="Script" path="res://minimaxGame.cs" id="1_lxhbq"]
 [ext_resource type="PackedScene" uid="uid://c22opdntsfj1i" path="res://gameOver.tscn" id="2_y777o"]
@@ -36,15 +36,19 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qilcp"]
-bg_color = Color(0.945098, 0.592157, 0.262745, 1)
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f0bfr"]
+bg_color = Color(0.0823529, 0.0823529, 0.0823529, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.458824, 0.458824, 0.458824, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a5cf4"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8lujw"]
 bg_color = Color(0.945098, 0.592157, 0.262745, 1)
-corner_radius_top_left = 3
-corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wpo07"]
+bg_color = Color(0.945098, 0.592157, 0.262745, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3h7sn"]
 
@@ -78,36 +82,35 @@ offset_bottom = 40.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_kmbfk")
 
 [node name="player1 Label" type="Label" parent="."]
-offset_left = 14.0
+offset_left = 32.0
 offset_top = 67.0
-offset_right = 131.0
+offset_right = 149.0
 offset_bottom = 135.0
 theme_override_font_sizes/font_size = 20
 text = "Player
 Cross"
 
 [node name="player1ScoreLabel" type="Label" parent="."]
-offset_left = 15.0
-offset_top = 125.0
-offset_right = 132.0
-offset_bottom = 193.0
+offset_left = 32.0
+offset_top = 120.0
+offset_right = 80.0
+offset_bottom = 206.0
 theme_override_font_sizes/font_size = 60
 text = "0"
 
 [node name="turnLabel" type="Label" parent="."]
-offset_left = 315.0
-offset_top = 68.0
-offset_right = 432.0
-offset_bottom = 136.0
+offset_left = 248.0
+offset_top = 67.0
+offset_right = 390.0
+offset_bottom = 100.0
 theme_override_font_sizes/font_size = 20
-text = "
-"
+text = "computer turn"
 
 [node name="player2 Label" type="Label" parent="."]
-offset_left = 551.0
-offset_top = 65.0
-offset_right = 668.0
-offset_bottom = 133.0
+offset_left = 549.0
+offset_top = 67.0
+offset_right = 666.0
+offset_bottom = 135.0
 theme_override_font_sizes/font_size = 20
 text = "Computer
 Circle"
@@ -115,8 +118,8 @@ Circle"
 [node name="player2ScoreLabel" type="Label" parent="."]
 offset_left = 557.0
 offset_top = 119.0
-offset_right = 674.0
-offset_bottom = 187.0
+offset_right = 608.0
+offset_bottom = 205.0
 theme_override_font_sizes/font_size = 60
 text = "0"
 
@@ -125,7 +128,7 @@ offset_left = 22.0
 offset_top = 20.0
 offset_right = 96.0
 offset_bottom = 53.0
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxFlat_foxvi")
 text = "Home"
 
@@ -139,15 +142,15 @@ position = Vector2(978, 246)
 scale = Vector2(0.419525, 0.419264)
 texture = ExtResource("5_adltd")
 
+[node name="diag2Win" type="Sprite2D" parent="."]
+position = Vector2(344, 672)
+scale = Vector2(0.389491, 0.38613)
+texture = ExtResource("7_qnvn5")
+
 [node name="diag1Win" type="Sprite2D" parent="."]
-position = Vector2(336, 649)
+position = Vector2(336, 676)
 scale = Vector2(0.382143, 0.378587)
 texture = ExtResource("6_7muck")
-
-[node name="diag2Win" type="Sprite2D" parent="."]
-position = Vector2(352, 662)
-scale = Vector2(0.382143, 0.378587)
-texture = ExtResource("7_qnvn5")
 
 [node name="blackDot" type="Sprite2D" parent="."]
 position = Vector2(89, 672)
@@ -177,22 +180,22 @@ stream = ExtResource("6_0skgi")
 
 [node name="dotsCrosses" type="Node2D" parent="."]
 
-[node name="hardPlay" type="Button" parent="."]
-offset_left = 549.0
-offset_top = 263.0
-offset_right = 658.0
-offset_bottom = 294.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_qilcp")
-disabled = true
-text = "Hard"
-
 [node name="easyPlay" type="Button" parent="."]
 offset_left = 441.0
 offset_top = 263.0
 offset_right = 555.0
 offset_bottom = 294.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_a5cf4")
+theme_override_styles/normal = SubResource("StyleBoxFlat_f0bfr")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8lujw")
 text = "Easy"
+
+[node name="hardPlay" type="Button" parent="."]
+offset_left = 549.0
+offset_top = 263.0
+offset_right = 658.0
+offset_bottom = 294.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_wpo07")
+text = "Hard"
 
 [node name="muteIcon" type="Sprite2D" parent="."]
 position = Vector2(597, 38)
@@ -213,11 +216,11 @@ scale = Vector2(0.05, 0.05)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_3h7sn")
 
 [node name="finishButton" type="Button" parent="."]
-offset_left = 458.0
+offset_left = 431.0
 offset_top = 23.0
-offset_right = 562.0
+offset_right = 567.0
 offset_bottom = 54.0
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxFlat_jhk3m")
 text = "Finish Game"
 

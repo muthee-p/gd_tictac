@@ -60,45 +60,44 @@ offset_bottom = 40.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_kmbfk")
 
 [node name="player1 Label" type="Label" parent="."]
-offset_left = 14.0
-offset_top = 67.0
-offset_right = 131.0
-offset_bottom = 135.0
+offset_left = 22.0
+offset_top = 65.0
+offset_right = 139.0
+offset_bottom = 133.0
 theme_override_font_sizes/font_size = 20
 text = "Player One
 Cross"
 
 [node name="player1ScoreLabel" type="Label" parent="."]
-offset_left = 15.0
-offset_top = 125.0
-offset_right = 132.0
-offset_bottom = 193.0
+offset_left = 24.0
+offset_top = 120.0
+offset_right = 73.0
+offset_bottom = 206.0
 theme_override_font_sizes/font_size = 60
 text = "0"
 
 [node name="turnLabel" type="Label" parent="."]
-offset_left = 315.0
-offset_top = 68.0
-offset_right = 432.0
-offset_bottom = 136.0
+offset_left = 272.0
+offset_top = 65.0
+offset_right = 397.0
+offset_bottom = 101.0
 theme_override_font_sizes/font_size = 20
-text = "
-"
+text = "player 1 turn"
 
 [node name="player2 Label" type="Label" parent="."]
-offset_left = 551.0
+offset_left = 544.0
 offset_top = 65.0
-offset_right = 668.0
+offset_right = 661.0
 offset_bottom = 133.0
 theme_override_font_sizes/font_size = 20
 text = "Player Two
 Circle"
 
 [node name="player2ScoreLabel" type="Label" parent="."]
-offset_left = 557.0
-offset_top = 119.0
-offset_right = 674.0
-offset_bottom = 187.0
+offset_left = 544.0
+offset_top = 120.0
+offset_right = 579.0
+offset_bottom = 206.0
 theme_override_font_sizes/font_size = 60
 text = "0"
 
@@ -107,7 +106,7 @@ offset_left = 22.0
 offset_top = 20.0
 offset_right = 96.0
 offset_bottom = 53.0
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxFlat_foxvi")
 text = "Home"
 

@@ -36,14 +36,18 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5sbn"]
-corner_radius_top_left = 3
-corner_radius_bottom_left = 3
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jkt5h"]
-bg_color = Color(0.945098, 0.592157, 0.262745, 1)
+bg_color = Color(0.0235294, 0.00784314, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.54902, 0.54902, 0.54902, 1)
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dhow6"]
+bg_color = Color(0.945098, 0.592157, 0.262745, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2eeem"]
 
@@ -77,45 +81,44 @@ offset_bottom = 40.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_kmbfk")
 
 [node name="player1 Label" type="Label" parent="."]
-offset_left = 14.0
-offset_top = 67.0
-offset_right = 131.0
-offset_bottom = 135.0
+offset_left = 24.0
+offset_top = 66.0
+offset_right = 141.0
+offset_bottom = 134.0
 theme_override_font_sizes/font_size = 20
 text = "Player
 Cross"
 
 [node name="player1ScoreLabel" type="Label" parent="."]
-offset_left = 15.0
-offset_top = 125.0
-offset_right = 132.0
-offset_bottom = 193.0
+offset_left = 24.0
+offset_top = 119.0
+offset_right = 70.0
+offset_bottom = 205.0
 theme_override_font_sizes/font_size = 60
 text = "0"
 
 [node name="turnLabel" type="Label" parent="."]
-offset_left = 315.0
-offset_top = 68.0
-offset_right = 432.0
-offset_bottom = 136.0
+offset_left = 250.0
+offset_top = 66.0
+offset_right = 392.0
+offset_bottom = 97.0
 theme_override_font_sizes/font_size = 20
-text = "
-"
+text = "computer turn"
 
 [node name="player2 Label" type="Label" parent="."]
-offset_left = 551.0
-offset_top = 65.0
-offset_right = 668.0
-offset_bottom = 133.0
+offset_left = 544.0
+offset_top = 66.0
+offset_right = 661.0
+offset_bottom = 134.0
 theme_override_font_sizes/font_size = 20
 text = "Computer
 Circle"
 
 [node name="player2ScoreLabel" type="Label" parent="."]
-offset_left = 557.0
+offset_left = 544.0
 offset_top = 119.0
-offset_right = 674.0
-offset_bottom = 187.0
+offset_right = 587.0
+offset_bottom = 205.0
 theme_override_font_sizes/font_size = 60
 text = "0"
 
@@ -126,7 +129,7 @@ offset_left = 22.0
 offset_top = 20.0
 offset_right = 96.0
 offset_bottom = 53.0
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxFlat_foxvi")
 text = "Home"
 
@@ -147,7 +150,7 @@ scale = Vector2(0.419525, 0.419264)
 texture = ExtResource("8_71dud")
 
 [node name="diag1Win" type="Sprite2D" parent="."]
-position = Vector2(334, 657)
+position = Vector2(344, 664)
 scale = Vector2(0.382143, 0.378587)
 texture = ExtResource("9_na8is")
 
@@ -176,15 +179,6 @@ position = Vector2(87, 674)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("4_n8203")
 
-[node name="easyPlay" type="Button" parent="."]
-offset_left = 441.0
-offset_top = 263.0
-offset_right = 555.0
-offset_bottom = 294.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_w5sbn")
-disabled = true
-text = "Easy"
-
 [node name="hardPlay" type="Button" parent="."]
 offset_left = 549.0
 offset_top = 263.0
@@ -192,6 +186,14 @@ offset_right = 658.0
 offset_bottom = 294.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_jkt5h")
 text = "Hard"
+
+[node name="easyPlay" type="Button" parent="."]
+offset_left = 441.0
+offset_top = 263.0
+offset_right = 555.0
+offset_bottom = 294.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_dhow6")
+text = "Easy"
 
 [node name="muteIcon" type="Sprite2D" parent="."]
 position = Vector2(597, 38)
@@ -213,11 +215,11 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_2eeem")
 toggle_mode = true
 
 [node name="finishButton" type="Button" parent="."]
-offset_left = 458.0
+offset_left = 440.0
 offset_top = 23.0
-offset_right = 562.0
+offset_right = 567.0
 offset_bottom = 54.0
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxFlat_cmv7f")
 text = "Finish Game"
 
